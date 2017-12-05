@@ -1,4 +1,5 @@
 
-public class CPU {
+public class CPU 
+{
 
 }
