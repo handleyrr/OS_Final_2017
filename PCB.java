@@ -1,48 +1,79 @@
-
-
-public class PCB 
-//data structure located in the kernel that contains the memory 
-{
-	int processId; 
-	int arrivalOrder; 
-	String state; 
-	int[] Code; 
-	int PositionOfNextInstruction; 
-	long ProcessMade; 
-	long ProcessDone; 
-	
-	public PCB(int processId, int arrivalOrder, int[] code)
-	{
-		this.processId = processId; 
-		this.arrivalOrder = arrivalOrder; 
-		this.Code = code; 
-		this.state = "new"; 
-		this.PositionOfNextInstruction= 0; 
-		this.ProcessMade = System.currentTimeMillis(); 
+class PCB {
+	//parts of a process
+	int ProcessID;
+	int ArrivalTime;
+	String State;
+	int[] Code;
+	//position in burst sequence
+	int PositionOfNextInstructionToExecute;
+	//priority integer
+	int Priority;
+	//variables for time calculation later
+	long ProcessCreated;
+	long ProcessFinished;
+	long ProcessIOComplete;
+	long Latency;
+	long Response;
+	//Constructor
+	public PCB (int processId, int arrivalTime, int[] code){
+		this.ProcessID = processId;
+		this.ArrivalTime = arrivalTime;
+		//this.Priority = priority;
+		this.Code = code;
+		this.State = "New";
+		this.PositionOfNextInstructionToExecute = 0;
+		this.ProcessCreated = System.currentTimeMillis();
+	}
+	//helpful return methods (can add more later)
+	public String getProcessState(){
+		return this.State;
 	}
 	
-	public String getProcessState()
-	{
-		return this.state; 
+	public void setProcessState(String state){
+		this.State = state;
 	}
 	
-	public void setProcessState (String state)
-	{
-		this.state = state; 
+	//time calcs
+	public void setProcessFinished(){
+		this.ProcessFinished = System.currentTimeMillis();
 	}
 	
-	public int getNextInstruction()
-	{
-		return this.PositionOfNextInstruction; 
+	//time calcs
+	public void setProcessIOComplete(){
+		this.ProcessIOComplete = System.currentTimeMillis();
 	}
 	
-	public int[] getInatructions()
-	{
-		return this.Code; 
+	//time calcs
+	public int getLatency(){
+		int TotalLatency = 0;
+		TotalLatency = (int)(this.ProcessCreated-this.ProcessFinished);
+		return TotalLatency;
 	}
 	
-	public void advanceInstruction()
-	{
-		this.PositionOfNextInstruction++; 
+	//time calcs
+	public int getResponseTime(){
+		int TotalResponseTime = 0;
+		TotalResponseTime = (int)(this.ProcessCreated - this.ProcessIOComplete);
+		return TotalResponseTime;
 	}
+	
+	//next instruction
+	public int getNextInstruction(){
+		return this.PositionOfNextInstructionToExecute;
+	}
+	
+	public int[] getInstruction(){
+		return this.Code;
+	}
+	
+	//go to next instruction
+	public void advanceInstruction(){
+		this.PositionOfNextInstructionToExecute++;
+	}
+	
+	public int getPriority(){
+		return this.Priority;
+	}
+	
+	//TODO make more methods for acquiring data
 }
