@@ -1,6 +1,6 @@
 class CPU {
 	public boolean BusyOrNot;
-	public int PC; // Your CPU only has one register PC
+	public static int PC; // Your CPU only has one register PC
 	public int timeslice;
 
 	public CPU(int settimeslice) {

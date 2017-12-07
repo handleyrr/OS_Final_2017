@@ -27,10 +27,10 @@ class OS
 			//reads the file
 		
 		while ((line = read.readLine()) !=null)
-				//while each ine is read, the document will be inserted into an
-				// array each time the .csv shows a comma
+				//while each line is read, the document will be inserted into an
+				// array each time the .CSV shows a comma
 				// the data is then parsed into variables
-				// the Instructions come in a sinlge line, so 
+				// the Instructions come in a single line, so 
 				// in oder to get the instruction sequence, we have to break
 				// the instruction line apart
 				
@@ -54,14 +54,9 @@ class OS
 		return myPCB; 
 	}
 
-	public static void FCFS(PCB process)
+	public static void OSscheduler(PCB process)
 	{
-		int timeslice = 99999; 
 		boolean done = false; 
-		boolean firstIOcheck = true; 
-		CPU cpu = new CPU(timeslice); 
-		
-		
 		while(!done)
 		{
 			String state = "New"; 
@@ -115,18 +110,14 @@ class OS
 				}
 				Ready.add(Waiting.get(0)); 
 				popShift(Waiting); 
-				if(firstIOcheck== true)
-				{
-					process.setProcessIOComplete();
-					firstIOcheck = false; 
-				}
+				
 				state = "Running"; 
 				process.setProcessState("Running");
 				process.advanceInstruction();
 				
 			case "Terminated" : 
 				//process finished executing 
-				process.setProcessFinished();
+			
 				Ready.remove(0);
 				if (Ready==null)
 				{
@@ -139,6 +130,11 @@ class OS
 			}
 		}
 		System.out.println("All processes have finshed executing");
+	}
+
+	public static void DeviceDriver()
+	{
+		//TODO write the code
 	}
 
 	private static void popShift(ArrayList<PCB> arrayList) 

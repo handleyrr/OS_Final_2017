@@ -14,11 +14,10 @@ class PCB {
 	long ProcessIOComplete;
 	long Latency;
 	long Response;
-	//Constructor
+
 	public PCB (int processId, int arrivalTime, int[] code){
 		this.ProcessID = processId;
 		this.ArrivalTime = arrivalTime;
-		//this.Priority = priority;
 		this.Code = code;
 		this.State = "New";
 		this.PositionOfNextInstructionToExecute = 0;
@@ -31,30 +30,6 @@ class PCB {
 	
 	public void setProcessState(String state){
 		this.State = state;
-	}
-	
-	//time calcs
-	public void setProcessFinished(){
-		this.ProcessFinished = System.currentTimeMillis();
-	}
-	
-	//time calcs
-	public void setProcessIOComplete(){
-		this.ProcessIOComplete = System.currentTimeMillis();
-	}
-	
-	//time calcs
-	public int getLatency(){
-		int TotalLatency = 0;
-		TotalLatency = (int)(this.ProcessCreated-this.ProcessFinished);
-		return TotalLatency;
-	}
-	
-	//time calcs
-	public int getResponseTime(){
-		int TotalResponseTime = 0;
-		TotalResponseTime = (int)(this.ProcessCreated - this.ProcessIOComplete);
-		return TotalResponseTime;
 	}
 	
 	//next instruction
